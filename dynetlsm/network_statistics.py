@@ -56,7 +56,7 @@ def static_modularity(Y, z, is_directed=False):
 
     A = 0.5 * (Y + Y.T) if is_directed else Y
     B = A - np.dot(degree, degree.T) / (2 * n_edges)
-    S = np.eye(n_groups)[groups.astype(np.int)]
+    S = np.eye(n_groups)[groups.astype(int)]
 
     return np.trace(S.T @  B @ S) / (2 * n_edges)
 
