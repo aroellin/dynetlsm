@@ -78,7 +78,7 @@ cdef inline double euclidean_distance(DOUBLE[:] x, DOUBLE[:] y) nogil:
 
 def marginal_forecast(DOUBLE[:, :] x,
                       DOUBLE[:, :, :] x_prev,
-                      np.ndarray[np.int64_t, ndim=2, mode='c'] z,
+                      np.ndarray[np.int64, ndim=2, mode='c'] z,
                       np.ndarray[double, ndim=3, mode='c'] trans_weights,
                       np.ndarray[double, ndim=3, mode='c'] mus,
                       np.ndarray[double, ndim=2, mode='c'] sigmas,
@@ -95,7 +95,7 @@ def marginal_forecast(DOUBLE[:, :] x,
         (n_nodes, n_nodes))
     cdef np.ndarray[double, ndim=2, mode='c'] probas = np.zeros(
         (n_nodes, n_nodes))
-    cdef np.ndarray[np.int64_t, ndim=1, mode='c'] zs
+    cdef np.ndarray[np.int64, ndim=1, mode='c'] zs
     cdef DOUBLE[:, :] weights, mean
     cdef DOUBLE[:] sigma
 
