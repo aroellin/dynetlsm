@@ -8,7 +8,7 @@ def sample_tables(n, beta, alpha_init, alpha, kappa, random_state=None):
 
     n_time_steps, n_components, _ = n.shape
     m = np.zeros((n_time_steps, n_components, n_components),
-                 dtype=np.int)
+                 dtype=int)
 
     # t = 0 does not include a spike
     probas = alpha_init * beta
