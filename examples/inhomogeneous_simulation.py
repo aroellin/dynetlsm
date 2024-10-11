@@ -38,7 +38,7 @@ sample_hyperparameters = False
 
 def counts_per_time_step(z):
     n_time_steps = z.shape[0]
-    group_counts = np.zeros(n_time_steps, dtype=np.int)
+    group_counts = np.zeros(n_time_steps, dtype=int)
     for t in range(n_time_steps):
         group_counts[t] = np.unique(z[t]).shape[0]
 
@@ -202,7 +202,7 @@ plt.savefig('cluster_posterior.png', dpi=300)
 plt.clf()
 
 # plot selected number of groups for each simulation
-data = np.zeros((n_time_steps, n_groups), dtype=np.int)
+data = np.zeros((n_time_steps, n_groups), dtype=int)
 for sim_id, file_name in enumerate(glob.glob('results/*')):
     df = pd.read_csv(file_name)
     for t in range(n_time_steps):
