@@ -16,7 +16,7 @@ def sample_control_nodes(edge_list, n_samples=100, random_state=None):
 
     # TODO: n_samples can be a fraction of total number of nodes
 
-    control_nodes = np.zeros((n_nodes, n_samples), dtype=np.int)
+    control_nodes = np.zeros((n_nodes, n_samples), dtype=int)
     for i in range(n_nodes):
         # stratify sample based one connections vs. non-connections
         n_connected = int(edge_list[i].shape[0] / n_nodes * n_samples)
@@ -55,7 +55,7 @@ def case_control_init(Y, is_directed=False, n_samples=100):
     n_time_steps, n_nodes, _ = Y.shape
 
     # compute in-degree / out-degree of each node
-    degree = np.zeros((n_time_steps, n_nodes, 2), dtype=np.int)
+    degree = np.zeros((n_time_steps, n_nodes, 2), dtype=int)
     for t in range(n_time_steps):
         degree[t, :, 0] = Y[t].sum(axis=0)  # in-degree
         degree[t, :, 1] = Y[t].sum(axis=1)  # out-degree
@@ -63,8 +63,8 @@ def case_control_init(Y, is_directed=False, n_samples=100):
     # store indices of edges, i.e. Y_ijt = 1
     max_in_degree = int(np.max(degree[:, :, 0]))
     max_out_degree = int(np.max(degree[:, :, 1]))
-    in_edges = np.zeros((n_time_steps, n_nodes, max_in_degree), dtype=np.int)
-    out_edges = np.zeros((n_time_steps, n_nodes, max_out_degree), dtype=np.int)
+    in_edges = np.zeros((n_time_steps, n_nodes, max_in_degree), dtype=int)
+    out_edges = np.zeros((n_time_steps, n_nodes, max_out_degree), dtype=int)
     for t in range(n_time_steps):
         for i in range(n_nodes):
             indices = np.where(Y[t, i, :] == 1)[0]
@@ -80,7 +80,7 @@ def case_control_init(Y, is_directed=False, n_samples=100):
     # determine edges (Y_ijt = 1 or Y_jit = 1 for at least one time step)
     edge_list = []
     for i in range(n_nodes):
-        mask = (np.logical_or(Y[:, i, :] == 1, Y[:, :, i] == 1)).astype(np.int)
+        mask = (np.logical_or(Y[:, i, :] == 1, Y[:, :, i] == 1)).astype(int)
         mask = mask.sum(axis=0)
         edge_list.append(np.unique(np.where(mask > 0)[0]))
 
