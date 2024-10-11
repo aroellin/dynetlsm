@@ -43,7 +43,7 @@ class DirectedCaseControlSampler(CaseControlSampler):
             self.n_control_ = int(self.n_control * n_nodes)
 
         # compute in-degree / out-degree of each node
-        self.degrees_ = np.zeros((n_time_steps, n_nodes, 2), dtype=np.int)
+        self.degrees_ = np.zeros((n_time_steps, n_nodes, 2), dtype=)
         for t in range(n_time_steps):
             self.degrees_[t, :, 0] = Y[t].sum(axis=0)  # in-degree
             self.degrees_[t, :, 1] = Y[t].sum(axis=1)  # out-degree
@@ -52,9 +52,9 @@ class DirectedCaseControlSampler(CaseControlSampler):
         max_in_degree = int(np.max(self.degrees_[:, :, 0]))
         max_out_degree = int(np.max(self.degrees_[:, :, 1]))
         self.in_edges_ = np.zeros((n_time_steps, n_nodes, max_in_degree),
-                                  dtype=np.int)
+                                  dtype=)
         self.out_edges_ = np.zeros((n_time_steps, n_nodes, max_out_degree),
-                                   dtype=np.int)
+                                   dtype=)
         for t in range(n_time_steps):
             for i in range(n_nodes):
                 indices = np.where(Y[t, i, :] == 1)[0]
@@ -77,9 +77,9 @@ class DirectedCaseControlSampler(CaseControlSampler):
         n_time_steps, n_nodes, _ = self.out_edges_.shape
 
         control_nodes_out = np.full((n_time_steps, n_nodes, self.n_control_),
-                                    -1.0, dtype=np.int)
+                                    -1.0, dtype=)
         control_nodes_in = np.full((n_time_steps, n_nodes, self.n_control_),
-                                   -1.0, dtype=np.int)
+                                   -1.0, dtype=)
         for t in range(n_time_steps):
             for i in range(n_nodes):
                 out_degree = self.degrees_[t, i, 1]
@@ -122,7 +122,7 @@ class MissingDirectedCaseControlSampler(CaseControlSampler):
             self.n_control_ = int(self.n_control * n_nodes)
 
         # compute in-degree / out-degree of each node
-        self.degrees_ = np.zeros((n_time_steps, n_nodes, 2), dtype=np.int)
+        self.degrees_ = np.zeros((n_time_steps, n_nodes, 2), dtype=)
         for t in range(n_time_steps):
             self.degrees_[t, :, 0] = Y[t].sum(axis=0)  # in-degree
             self.degrees_[t, :, 1] = Y[t].sum(axis=1)  # out-degree
@@ -131,9 +131,9 @@ class MissingDirectedCaseControlSampler(CaseControlSampler):
         max_in_degree = int(np.max(self.degrees_[:, :, 0]))
         max_out_degree = int(np.max(self.degrees_[:, :, 1]))
         self.in_edges_ = np.zeros((n_time_steps, n_nodes, max_in_degree),
-                                  dtype=np.int)
+                                  dtype=)
         self.out_edges_ = np.zeros((n_time_steps, n_nodes, max_out_degree),
-                                   dtype=np.int)
+                                   dtype=)
         for t in range(n_time_steps):
             for i in range(n_nodes):
                 indices = np.where(Y[t, i, :] == 1)[0]
@@ -164,7 +164,7 @@ class MissingDirectedCaseControlSampler(CaseControlSampler):
 
         # TODO: n_control_samples can be a fraction of total number of nodes
 
-        control_nodes = np.zeros((n_nodes, self.n_control_), dtype=np.int)
+        control_nodes = np.zeros((n_nodes, self.n_control_), dtype=)
         for i in range(n_nodes):
             # stratify sample based one connections vs. non-connections
             n_connected = int(self.edge_list_[i].shape[0] / n_nodes *
