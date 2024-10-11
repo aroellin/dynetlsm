@@ -100,7 +100,7 @@ def init_sampler(Y, is_directed=False,
         radiis = None
 
     # cluster parameters
-    zs = np.zeros((n_iter, n_time_steps, n_nodes), dtype=np.int)
+    zs = np.zeros((n_iter, n_time_steps, n_nodes), dtype=int)
     mus = np.zeros((n_iter, n_components, n_features),
                    dtype=np.float64)
     sigmas = np.zeros((n_iter, n_components), dtype=np.float64)
@@ -288,7 +288,7 @@ class DynamicNetworkLPCM(object):
         n_groups = self.mu_.shape[0]
 
         wt = self.trans_weight_
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         Xt = np.zeros((n_nodes, self.n_features), dtype=np.float64)
         probas = np.zeros((n_nodes, n_nodes))
         for _ in range(n_samples):
