@@ -59,7 +59,7 @@ def detection_limit_simulation(
     wt = np.array([[1 - trans_proba, trans_proba],
                    [trans_proba, 1 - trans_proba]])
     for t in range(1, n_time_steps):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(2):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice(np.arange(2), p=wt[group_id, :],
