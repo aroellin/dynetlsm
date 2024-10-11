@@ -31,7 +31,7 @@ def calculate_cluster_counts_t(model):
     n_iter, n_time_steps, _ = z.shape
     n_burn = n_burn if n_burn is not None else 0
 
-    counts = np.zeros((n_time_steps, int(n_iter - n_burn)), dtype=np.int)
+    counts = np.zeros((n_time_steps, int(n_iter - n_burn)), dtype=int)
     for t in range(n_time_steps):
         for i in range(n_iter - n_burn):
             n_clusters = np.unique(z[i + n_burn, t]).shape[0]
@@ -46,7 +46,7 @@ def calculate_cluster_counts(model):
     n_iter = z.shape[0]
     n_burn = n_burn if n_burn is not None else 0
 
-    counts = np.zeros(int(n_iter - n_burn), dtype=np.int)
+    counts = np.zeros(int(n_iter - n_burn), dtype=int)
     for i in range(n_iter - n_burn):
         n_clusters = np.unique(z[i + n_burn].ravel()).shape[0]
         counts[i] = n_clusters
