@@ -46,7 +46,7 @@ def forecast_probas(
     n_nodes, n_features = X.shape
     n_groups = mu.shape[0]
 
-    zt = np.zeros(n_nodes, dtype=np.int)
+    zt = np.zeros(n_nodes, dtype=int)
     Xt = np.zeros((n_nodes, n_features), dtype=np.float64)
     probas = np.zeros((n_nodes, n_nodes))
     for _ in range(n_samples):
@@ -96,7 +96,7 @@ def network_from_dynamic_latent_space(X, intercept=1, coef=1,
             probas[t] = pij
         else:
             pij = probas[t]
-        Y[t] = rng.binomial(1, pij).astype(np.int)
+        Y[t] = rng.binomial(1, pij).astype(int)
         if radii is None:
             Y[t] = np.triu(Y[t], 1)
             Y[t] += Y[t].T
@@ -163,7 +163,7 @@ def simple_splitting_dynamic_network(n_nodes=120, n_time_steps=9,
     z.append(z0)
 
     for t in range(1, time_chunks):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice(np.arange(n_groups), p=wt[group_id, :],
@@ -194,7 +194,7 @@ def simple_splitting_dynamic_network(n_nodes=120, n_time_steps=9,
     wt_merge[infinite_mask] = np.max(wt_merge, axis=1)
     wt_merge /= wt_merge.sum(axis=1).reshape(-1, 1)
 
-    zt = np.zeros(n_nodes, dtype=np.int)
+    zt = np.zeros(n_nodes, dtype=int)
     for group_id in range(n_groups):
         group_mask = z[-1] == group_id
         group_size = np.sum(group_mask)
@@ -223,7 +223,7 @@ def simple_splitting_dynamic_network(n_nodes=120, n_time_steps=9,
     wt = wt / wt.sum(axis=1).reshape(-1, 1)
 
     for t in range(time_chunks + 1, 2 * time_chunks):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups_new):
             group_mask = z[t-1] == group_id + n_groups
             group_size = np.sum(group_mask)
@@ -292,12 +292,12 @@ def merging_dynamic_network(n_nodes=120, n_time_steps=5,
 
     for t in range(1, n_time_steps):
         if t > 2:
-            zt = 2 * np.ones(n_nodes, dtype=np.int)
+            zt = 2 * np.ones(n_nodes, dtype=int)
         else:
             wt = np.array([[1 - t/4.,  0., t/4.],
                            [0, 1 - t/4., t/4.],
                            [0, 0, 1.]])
-            zt = np.zeros(n_nodes, dtype=np.int)
+            zt = np.zeros(n_nodes, dtype=int)
             for group_id in range(3):
                 group_mask = z[t-1] == group_id
                 group_size = np.sum(group_mask)
@@ -341,7 +341,7 @@ def merging_block_model(n_nodes=100, n_time_steps=6, p_in=0.6,
                    [trans_proba, 1 - trans_proba]])
     for t in range(1, n_time_steps):
         # transition nodes
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(2):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice([0, 1], p=wt[group_id, :],
@@ -447,7 +447,7 @@ def synthetic_static_community_dynamic_network(
     z.append(z0)
 
     for t in range(1, n_time_steps):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice(np.arange(n_groups), p=wt[group_id, :],
@@ -545,7 +545,7 @@ def inhomogeneous_simulation(n_nodes=120, simulation_type='easy',
     z.append(z0)
 
     for t in range(1, 3):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice(np.arange(n_groups), p=wt[group_id, :],
@@ -577,7 +577,7 @@ def inhomogeneous_simulation(n_nodes=120, simulation_type='easy',
     wt_merge[infinite_mask] = np.max(wt_merge, axis=1)
     wt_merge /= wt_merge.sum(axis=1).reshape(-1, 1)
 
-    zt = np.zeros(n_nodes, dtype=np.int)
+    zt = np.zeros(n_nodes, dtype=int)
     for group_id in range(n_groups_old):
         group_mask = z[-1] == group_id
         group_size = np.sum(group_mask)
@@ -606,7 +606,7 @@ def inhomogeneous_simulation(n_nodes=120, simulation_type='easy',
     wt = wt / wt.sum(axis=1).reshape(-1, 1)
 
     for t in range(4, 6):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t-1] == group_id
             group_size = np.sum(group_mask)
@@ -638,7 +638,7 @@ def inhomogeneous_simulation(n_nodes=120, simulation_type='easy',
         sticky_const * np.max(wt_merge, axis=1)[:n_groups])
     wt_merge /= wt_merge.sum(axis=1).reshape(-1, 1)
 
-    zt = np.zeros(n_nodes, dtype=np.int)
+    zt = np.zeros(n_nodes, dtype=int)
     for group_id in range(n_groups_old):
         group_mask = z[-1] == group_id
         group_size = np.sum(group_mask)
@@ -666,7 +666,7 @@ def inhomogeneous_simulation(n_nodes=120, simulation_type='easy',
     wt[diag_indices] = sticky_const * np.max(wt, axis=1)
     wt = wt / wt.sum(axis=1).reshape(-1, 1)
     for t in range(7, 10):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t-1] == group_id
             group_size = np.sum(group_mask)
@@ -766,7 +766,7 @@ def homogeneous_simulation(
     z.append(z0)
 
     for t in range(1, n_time_steps):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice(np.arange(n_groups), p=wt[group_id, :],
@@ -902,7 +902,7 @@ def synthetic_dynamic_network(n_nodes=120, n_time_steps=9,
     z.append(z0)
 
     for t in range(1, time_chunks):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups):
             group_mask = z[t - 1] == group_id
             zt[group_mask] = rng.choice(np.arange(n_groups), p=wt[group_id, :],
@@ -933,7 +933,7 @@ def synthetic_dynamic_network(n_nodes=120, n_time_steps=9,
     wt_merge[infinite_mask] = np.max(wt_merge, axis=1)
     wt_merge /= wt_merge.sum(axis=1).reshape(-1, 1)
 
-    zt = np.zeros(n_nodes, dtype=np.int)
+    zt = np.zeros(n_nodes, dtype=int)
     for group_id in range(n_groups):
         group_mask = z[-1] == group_id
         group_size = np.sum(group_mask)
@@ -964,7 +964,7 @@ def synthetic_dynamic_network(n_nodes=120, n_time_steps=9,
     wt = wt / wt.sum(axis=1).reshape(-1, 1)
 
     for t in range(time_chunks + 1, 2 * time_chunks):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for group_id in range(n_groups_new):
             group_mask = z[t-1] == group_id #+ n_groups
             group_size = np.sum(group_mask)
@@ -1002,7 +1002,7 @@ def synthetic_dynamic_network(n_nodes=120, n_time_steps=9,
         sticky_const * np.max(wt_merge, axis=1)[indices])
     wt_merge /= wt_merge.sum(axis=1).reshape(-1, 1)
 
-    zt = np.zeros(n_nodes, dtype=np.int)
+    zt = np.zeros(n_nodes, dtype=int)
     for group_id in range(n_groups_new):
         group_mask = z[-1] == group_id #+ n_groups
         group_size = np.sum(group_mask)
@@ -1030,7 +1030,7 @@ def synthetic_dynamic_network(n_nodes=120, n_time_steps=9,
     wt[diag_indices] = sticky_const * np.max(wt, axis=1)
     wt = wt / wt.sum(axis=1).reshape(-1, 1)
     for t in range(2 * time_chunks + 1, n_time_steps + 1):
-        zt = np.zeros(n_nodes, dtype=np.int)
+        zt = np.zeros(n_nodes, dtype=int)
         for idx, group_id in enumerate(new_groups):
             group_mask = z[t-1] == group_id
             group_size = np.sum(group_mask)
