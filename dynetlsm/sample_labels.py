@@ -28,11 +28,11 @@ def sample_labels_gibbs(X, mu, sigma, lmbda, w0, w, random_state=None):
     # initialize cluster statistics
     # NOTE: n[0, 0, k] stores transitions for initial distribution
     n = np.zeros((n_time_steps, n_components, n_components))
-    resp = np.zeros((n_time_steps, n_nodes, n_components), dtype=np.int)
-    nk = np.zeros((n_time_steps, n_components), dtype=np.int)
+    resp = np.zeros((n_time_steps, n_nodes, n_components), dtype=int)
+    nk = np.zeros((n_time_steps, n_components), dtype=int)
 
     # initialize labels
-    z = np.zeros((n_time_steps, n_nodes), dtype=np.int)
+    z = np.zeros((n_time_steps, n_nodes), dtype=int)
 
     # store sample probabilities
     probas = np.zeros(n_components, dtype=np.float64)
@@ -86,11 +86,11 @@ def sample_labels_block_lpcm(
     # initialize cluster statistics
     # NOTE: n[0, 0, k] stores transitions for initial distribution
     n = np.zeros((n_time_steps, n_components, n_components))
-    resp = np.zeros((n_time_steps, n_nodes, n_components), dtype=np.int)
-    nk = np.zeros((n_time_steps, n_components), dtype=np.int)
+    resp = np.zeros((n_time_steps, n_nodes, n_components), dtype=int)
+    nk = np.zeros((n_time_steps, n_components), dtype=int)
 
     # initialize labels
-    z = np.zeros((n_time_steps, n_nodes), dtype=np.int)
+    z = np.zeros((n_time_steps, n_nodes), dtype=int)
 
     # sample labels for each node
     for i in range(n_nodes):
@@ -146,11 +146,11 @@ def sample_labels_block(X, mu, sigma, lmbda, w, random_state=None):
     # initialize cluster statistics
     # NOTE: n[0, 0, k] stores transitions for initial distribution
     n = np.zeros((n_time_steps, n_components, n_components))
-    resp = np.zeros((n_time_steps, n_nodes, n_components), dtype=np.int)
-    nk = np.zeros((n_time_steps, n_components), dtype=np.int)
+    resp = np.zeros((n_time_steps, n_nodes, n_components), dtype=int)
+    nk = np.zeros((n_time_steps, n_components), dtype=int)
 
     # initialize labels
-    z = np.zeros((n_time_steps, n_nodes), dtype=np.int)
+    z = np.zeros((n_time_steps, n_nodes), dtype=int)
 
     # sample labels for each node
     for i in range(n_nodes):
